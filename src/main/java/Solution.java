@@ -1,22 +1,19 @@
-import java.util.*;
-public class Solution {
+import java.util.Arrays;
+
+class Solution {
     public int[][] divideArray(int[] nums, int k) {
-        List<int[]> list = new ArrayList<>();
+        int n = nums.length;
+        int[][] res = new int[n / 3][3];
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length - 2; i++) {
-            if(nums[i + 2] - nums[i] <= k){
-                list.add(new int[]{nums[i],nums[i + 1],nums[i +2]});
-                i+= 2;
-            }else{
+        int j = 0;
+        for(int i = 1; i < n - 1; i += 3){
+            if(nums[i + 1] - nums[i  - 1] <= k){
+                res[j][0] = nums[i - 1];
+                res[j][1] = nums[i];
+                res[j++][2] = nums[i + 1];
+            }else {
                 return new int[][]{};
             }
-        }
-
-        int n = list.size();
-        int[][] res = new int[n][3];
-
-        for (int i = 0; i < n; i++) {
-            res[i] = list.get(i);
         }
         return res;
     }
